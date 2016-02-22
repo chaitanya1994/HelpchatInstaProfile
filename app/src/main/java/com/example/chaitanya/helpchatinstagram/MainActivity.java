@@ -1,8 +1,10 @@
 package com.example.chaitanya.helpchatinstagram;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +12,7 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.chaitanya.helpchatinstagram.Fragments.InstagramLogin;
 import com.example.chaitanya.helpchatinstagram.response.Counts;
 import com.example.chaitanya.helpchatinstagram.response.Data;
 import com.example.chaitanya.helpchatinstagram.response.ResponseClass;
@@ -52,7 +55,10 @@ public class MainActivity extends AppCompatActivity {
         followedBy = (TextView) findViewById(R.id.followedByContent);
         profilePicture = (ImageView) findViewById(R.id.imageOfUser);
 
-        hitAPI("855595876.5b9e1e6.d3f4aa5294a74cfdbd1c1a97c87b6619");
+
+        Fragment fr = new InstagramLogin();
+        switchContent(R.id.activity_main, fr);
+
     }
 
 
@@ -93,14 +99,14 @@ public class MainActivity extends AppCompatActivity {
         if (count != null) {
             mediaText = count.getMedia().toString();
             followsText = count.getFollows().toString();
-//            followedByText = count.getFollowedBy().toString();
+            followedByText = count.getFollowedBy().toString();
 
 
             media.setText(mediaText);
             follows.setText(followsText);
-//            followedBy.setText(followedByText);
+            followedBy.setText(followedByText);
         }
-        GetXMLTask task = new GetXMLTask();
+        OnlinePhoto task = new OnlinePhoto();
         task.execute(new String[]{pictureURI});
 
 //        profilePicture.setImageURI(Uri.parse(pictureURI));
@@ -110,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
         website.setText(webText);
     }
 
-    private class GetXMLTask extends AsyncTask<String, Void, Bitmap> {
+    private class OnlinePhoto extends AsyncTask<String, Void, Bitmap> {
         @Override
         protected Bitmap doInBackground(String... urls) {
             Bitmap map = null;
@@ -165,5 +171,20 @@ public class MainActivity extends AppCompatActivity {
             return stream;
         }
     }
+    public void switchContentHistory(int id, Fragment fragment) {
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.replace(id, fragment, fragment.toString());
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+    public void switchContent(int id, Fragment fragment) {
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.replace(id, fragment, fragment.toString());
+        fragmentTransaction.commit();
+    }
+
 }
 
