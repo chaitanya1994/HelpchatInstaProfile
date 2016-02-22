@@ -149,7 +149,7 @@ public class InstagramLogin extends Fragment {
         protected void onPostExecute(Integer accessToken) {
             MainActivity activity = new MainActivity();
             Toast.makeText(getActivity(), mAccessToken + " " + name, Toast.LENGTH_LONG).show();
-            activity.hitAPI(mAccessToken);
+            ((MainActivity)getActivity()).showUser(mAccessToken);
             mProgress.dismiss();
 
         }
