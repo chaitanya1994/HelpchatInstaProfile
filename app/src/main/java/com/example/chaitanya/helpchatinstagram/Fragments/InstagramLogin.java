@@ -14,7 +14,6 @@ import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import com.example.chaitanya.helpchatinstagram.Data.InstagramData;
-import com.example.chaitanya.helpchatinstagram.Data.InstagramSession;
 import com.example.chaitanya.helpchatinstagram.MainActivity;
 import com.example.chaitanya.helpchatinstagram.R;
 
